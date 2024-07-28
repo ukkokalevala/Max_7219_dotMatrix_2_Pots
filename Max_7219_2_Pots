@@ -1,0 +1,41 @@
+#include <MD_Parola.h>
+#include <MD_MAX72XX.h>
+#include <SPI.h>
+
+#define HARDWARE_TYPE MD_MAX72XX::FC16_HW
+#define MAX_DEVICES 4 // Number of 8x8 LED matrices you have
+#define DATA_PIN 11
+#define CS_PIN 10
+#define CLK_PIN 13
+
+MD_Parola myDisplay = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
+
+#define SPEED_MIN 20
+#define SPEED_MAX 100
+#define POT1_PIN A0 // Potentiometer for speed
+#define POT2_PIN A1 // Potentiometer for horizontal movement
+
+void setup() {
+  myDisplay.begin();
+  myDisplay.setIntensity(0); // Set brightness level (0 is min, 15 is max)
+  myDisplay.displayText("Hello World", PA_CENTER, SPEED_MIN, 0, PA_SCROLL_LEFT, PA_SCROLL_LEFT);
+}
+
+void loop() {
+  int pot1Value = analogRead(POT1_PIN);
+  int pot2Value = analogRead(POT2_PIN);
+
+  int speed = map(pot1Value, 0, 1023, SPEED_MIN, SPEED_MAX);
+  myDisplay.setSpeed(speed); // Set the speed based on the potentiometer
+
+  // Adjust the horizontal position by changing the scroll direction
+  if (pot2Value > 512) {
+    myDisplay.setTextEffect(PA_SCROLL_LEFT, PA_SCROLL_LEFT);
+  } else {
+    myDisplay.setTextEffect(PA_SCROLL_RIGHT, PA_SCROLL_RIGHT);
+  }
+
+  if (myDisplay.displayAnimate()) {
+    myDisplay.displayReset();
+  }
+}
