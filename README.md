@@ -1,4 +1,4 @@
-This project uses an Arduino Nano, a 4-module MAX7219 8×8 LED dot matrix display, and two potentiometers to create an interactive scrolling text display. The system continuously shows the message "Hello World" across the LED matrices while allowing the user to control the scrolling behavior in real time.
+This project uses an Arduino Nano, a 1-module MAX7219 8×8 LED dot matrix display, and two potentiometers to create an interactive scrolling text display. The system continuously shows the message "Hello World" across the LED matrices while allowing the user to control the scrolling behavior in real time.
 
 The first potentiometer adjusts the scrolling speed, enabling the text to move faster or slower across the display. The second potentiometer controls the scroll direction, allowing the message to scroll either left or right depending on the knob position.
 
